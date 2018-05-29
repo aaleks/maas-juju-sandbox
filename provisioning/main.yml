@@ -1,0 +1,21 @@
+---
+- hosts: all
+  sudo: true
+  tasks:
+    - name: Update and upgrade apt packages
+      become: true
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 #One day
+    - name: update apt cache
+      apt: update_cache=yes
+    - name: install apache
+      apt: name=apache2 state=present
+    - name: install mysql
+      apt: name=mysql-server state=present
+    - name: Ansible create file with content example
+      copy:
+        dest: "/var/www/html/index.html"
+        content: |
+          testtt index
